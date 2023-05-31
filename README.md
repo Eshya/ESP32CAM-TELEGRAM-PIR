@@ -3,8 +3,8 @@
 ## Variable that you must edit to connect to your WIFI Hotspot
 
 ```cpp
-char ssid[] = "PRASIMAX AP";     // your network SSID (name)
-char password[] = "ciracas123"; // your WiFi network password
+char ssid[] = "YOUR SSID";     // your network SSID (name)
+char password[] = "PASSWORD"; // your WiFi network password
 ```
 
 ## Variable to connect to your Telegram API
