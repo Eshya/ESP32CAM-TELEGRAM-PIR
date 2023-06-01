@@ -216,16 +216,23 @@ void handleNewMessages(int numNewMessages) {
       flashState = !flashState;
       digitalWrite(FLASH_LED_PIN, flashState);
     }
-    if(text == "/lamp"){
-      relayState1=!relayState1;
+    if(text == "/1"){
+       relayState2=true;
+      digitalWrite(relay2, relayState2);
+    }
+    if(text == "/2"){
+      relayState1=true;
       digitalWrite(relay1, relayState1);
     }
-    if(text == "/alarm"){
-      relayState2=!relayState2;
+    if(text == "/0"){
+      relayState1=false;
+      relayState2=false;
+      digitalWrite(relay1, relayState1);
       digitalWrite(relay2, relayState2);
     }
     if (text == "/status") {
-      String stat = "Device: " + devstr + "\nVer: " + String(vernum) + "\nRssi: " + String(WiFi.RSSI()) + "\nip: " +  WiFi.localIP().toString() + "\nEnabled: " + pir_enabled + "\nAvi Enabled: " + avi_enabled;
+      String stat = "Device: " + devstr + "\nVer: " + String(vernum) + "\nRssi: " + String(WiFi.RSSI()) + "\nip: " +  WiFi.localIP().toString() + "\nEnabled: " + pir_enabled + "\nAvi Enabled: " + avi_enabled
+                    +  "\nAlarm: " + relayState1  + "\nStinger: " + relayState2;
       if (frame_interval == 0) {
         stat = stat + "\nFast 3 sec";
       } else if (frame_interval == 125) {
@@ -407,8 +414,9 @@ void handleNewMessages(int numNewMessages) {
       welcome += "\n/status: status\n";
       welcome += "/reboot: reboot\n";
       welcome += "/start: start\n";
-      welcome += "\n/lamp: lamp\n";
-      welcome += "/alarm: alarm\n";
+      welcome += "\n/1: alarm\n";
+      welcome += "/2: stringer\n";
+      welcome += "/0: stringer & alarm OFF\n";
       bot.sendMessage(chat_id, welcome, "Markdown");
     }
   }
