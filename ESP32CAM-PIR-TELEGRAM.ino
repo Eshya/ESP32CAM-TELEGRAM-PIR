@@ -11,9 +11,7 @@
 // https://github.com/witnessmenow/Universal-Arduino-Telegram-Bot
  
 #include <ArduinoJson.h>
-// Library used for parsing Json from the API responses
-// Search for "Arduino Json" in the Arduino Library manager
-// https://github.com/bblanchon/ArduinoJson
+
  
  
 static const char vernum[] = "pir-cam 8.9";
@@ -93,10 +91,6 @@ bool setupCamera() {
     config.jpeg_quality = 12;
     config.fb_count = 1;
   }
- 
-  //Serial.printf("Internal Total heap %d, internal Free Heap %d\n", ESP.getHeapSize(), ESP.getFreeHeap());
-  //Serial.printf("SPIRam Total heap   %d, SPIRam Free Heap   %d\n", ESP.getPsramSize(), ESP.getFreePsram());
- 
   static char * memtmp = (char *) malloc(32 * 1024);
   static char * memtmp2 = (char *) malloc(32 * 1024); //32767
  
@@ -185,9 +179,6 @@ uint8_t avi_next() {
  
 bool dataAvailable = false;
  
- 
-///////////////////////////////
- 
 uint8_t * psram_avi_buf = NULL;
 uint8_t * psram_idx_buf = NULL;
 uint8_t * psram_avi_ptr = 0;
@@ -196,8 +187,6 @@ char strftime_buf[64];
  
  
 void handleNewMessages(int numNewMessages) {
-  //Serial.println("handleNewMessages");
-  //Serial.println(String(numNewMessages));
  
   for (int i = 0; i < numNewMessages; i++) {
     chat_id = String(bot.messages[i].chat_id);
@@ -288,18 +277,7 @@ void handleNewMessages(int numNewMessages) {
       pir_enabled = true;
       avi_enabled = true;
     }
- 
-    /*
-    if (fb) {
-      esp_camera_fb_return(fb);
-      Serial.println("Return an fb ???");
-      if (fb) {
-        esp_camera_fb_return(fb);
-        Serial.println("Return another fb ?");
-      }
-    }
-    */
- 
+  
     for (int j = 0; j < 4; j++) {
     camera_fb_t * newfb = esp_camera_fb_get();
     if (!newfb) {
@@ -864,7 +842,6 @@ void end_avi() {
 //
 // setup some interupts during reboot
 //
-//  int read13 = digitalRead(13); -- pir for video
  
 int PIRpin = 14;
 
